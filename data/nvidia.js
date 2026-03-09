@@ -107,7 +107,7 @@ const config = {
   ],
   analysisMargin: [
     "<span class='text-white font-semibold'>利润率三线均创高位：</span>毛利率75%、营业利润率67%、净利率63%，均处半导体行业最顶尖水平。",
-    "<span class='text-white font-semibold'>FY27 SBC纳入non-GAAP：</span>管理层宣布Q1起将SBC计入非GAAP指标，短期可能影响投资者对"利润增长"的感知。",
+    "<span class='text-white font-semibold'>FY27 SBC纳入non-GAAP：</span>管理层宣布Q1起将SBC计入非GAAP指标，短期可能影响投资者对\"利润增长\"的感知。",
   ],
   analysisCapex: [
     "<span class='text-white font-semibold'>CapEx快速上升：</span>从FY25的$67亿增至FY26的$162亿，CapEx/收入从5.1%升至7.5%，加速自有产能建设。",
