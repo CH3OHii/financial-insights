@@ -7,16 +7,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"DM Serif Display"', 'Georgia', 'serif'],
-        body: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
-        mono: ['"IBM Plex Mono"', 'monospace'],
+        display: ['"Outfit"', 'system-ui', 'sans-serif'],
+        body: ['"Inter"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       colors: {
         surface: {
-          950: '#06080d',
-          900: '#0c1019',
-          800: '#131825',
-          700: '#1c2333',
+          950: '#02040a',
+          900: '#050810',
+          800: '#0d1222',
+          700: '#141c30',
         },
       },
       animation: {

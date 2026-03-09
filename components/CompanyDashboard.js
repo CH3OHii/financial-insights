@@ -15,11 +15,11 @@ import { MetricCard, SectionCard, AnalysisBox, ChartTooltip, BalanceBar } from '
 
 const defaultTabs = [
   { id: 'overview', label: '总览' },
-  { id: 'sankey',   label: 'Sankey' },
-  { id: 'margins',  label: '利润率' },
-  { id: 'capex',    label: 'CapEx' },
-  { id: 'balance',  label: '资产负债' },
-  { id: 'data',     label: '数据表' },
+  { id: 'sankey', label: 'Sankey' },
+  { id: 'margins', label: '利润率' },
+  { id: 'capex', label: 'CapEx' },
+  { id: 'balance', label: '资产负债' },
+  { id: 'data', label: '数据表' },
 ];
 
 function downloadCSV(rows, headers, filename) {
@@ -70,8 +70,7 @@ export default function CompanyDashboard({ config }) {
             <div className="flex gap-1 bg-surface-900/70 rounded-xl p-1 border border-slate-800/30 overflow-x-auto">
               {defaultTabs.map(t => (
                 <button key={t.id} onClick={() => setTab(t.id)}
-                  className={`flex-1 min-w-0 py-2.5 px-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                    tab === t.id ? 'bg-slate-700/80 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}>
+                  className={`flex-1 min-w-0 py-2.5 px-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${tab === t.id ? 'bg-slate-700/80 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}>
                   {t.label}
                 </button>
               ))}
@@ -96,13 +95,13 @@ export default function CompanyDashboard({ config }) {
                     <Legend wrapperStyle={{ fontSize: 10 }} />
                     {revBarKeys.map((key, i) => (
                       <Bar key={key} dataKey={key} stackId="a" fill={revBarColors[i]} name={revBarNames[i]}
-                        radius={i === revBarKeys.length - 1 ? [3,3,0,0] : [0,0,0,0]} />
+                        radius={i === revBarKeys.length - 1 ? [3, 3, 0, 0] : [0, 0, 0, 0]} />
                     ))}
                   </BarChart>
                 </ResponsiveContainer>
               </SectionCard>
               <AnalysisBox color="red" title="总览分析">
-                {analysisOverview.map((t, i) => <p key={i}>{t}</p>)}
+                {analysisOverview.map((t, i) => <p key={i} dangerouslySetInnerHTML={{ __html: t }} />)}
               </AnalysisBox>
             </>)}
 
@@ -112,7 +111,7 @@ export default function CompanyDashboard({ config }) {
                 <Sankey nodes={sankeyNodes} links={sankeyLinks} subtitle={`${period} · ${endDate}`} />
               </SectionCard>
               <AnalysisBox color="red" title="利润表分析">
-                {analysisSankey.map((t, i) => <p key={i}>{t}</p>)}
+                {analysisSankey.map((t, i) => <p key={i} dangerouslySetInnerHTML={{ __html: t }} />)}
               </AnalysisBox>
             </>)}
 
@@ -142,7 +141,7 @@ export default function CompanyDashboard({ config }) {
                 ))}
               </div>
               <AnalysisBox color="blue" title="利润率分析">
-                {analysisMargin.map((t, i) => <p key={i}>{t}</p>)}
+                {analysisMargin.map((t, i) => <p key={i} dangerouslySetInnerHTML={{ __html: t }} />)}
               </AnalysisBox>
             </>)}
 
@@ -163,14 +162,14 @@ export default function CompanyDashboard({ config }) {
                     <Legend wrapperStyle={{ fontSize: 10 }} />
                     {capexBarKeys.map((key, i) => (
                       <Bar key={key} yAxisId="left" dataKey={key} stackId="a" fill={capexBarColors[i]} name={capexBarNames[i]}
-                        radius={i === capexBarKeys.length - 1 ? [3,3,0,0] : [0,0,0,0]} />
+                        radius={i === capexBarKeys.length - 1 ? [3, 3, 0, 0] : [0, 0, 0, 0]} />
                     ))}
                     <Line yAxisId="right" dataKey="ratio" stroke="#EF4444" strokeWidth={2} name="CapEx/收入%" dot={{ r: 3, fill: '#EF4444' }} strokeDasharray="5 3" />
                   </ComposedChart>
                 </ResponsiveContainer>
               </SectionCard>
               <AnalysisBox color="amber" title="CapEx分析">
-                {analysisCapex.map((t, i) => <p key={i}>{t}</p>)}
+                {analysisCapex.map((t, i) => <p key={i} dangerouslySetInnerHTML={{ __html: t }} />)}
               </AnalysisBox>
             </>)}
 
@@ -206,13 +205,13 @@ export default function CompanyDashboard({ config }) {
                       <Tooltip content={<ChartTooltip unit="" />} />
                       <Legend wrapperStyle={{ fontSize: 10 }} />
                       <Bar dataKey="liabilities" stackId="a" fill="#EF4444" name="负债" />
-                      <Bar dataKey="equity" stackId="a" fill="#10B981" name="权益" radius={[3,3,0,0]} />
+                      <Bar dataKey="equity" stackId="a" fill="#10B981" name="权益" radius={[3, 3, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </SectionCard>
               )}
               <AnalysisBox color="indigo" title="资产负债分析">
-                {analysisBalance.map((t, i) => <p key={i}>{t}</p>)}
+                {analysisBalance.map((t, i) => <p key={i} dangerouslySetInnerHTML={{ __html: t }} />)}
               </AnalysisBox>
             </>)}
 
@@ -222,7 +221,7 @@ export default function CompanyDashboard({ config }) {
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-sm font-bold text-slate-300 uppercase tracking-widest">利润表 · {period}</span>
                   <button onClick={() => downloadCSV(incomeSnapshot,
-                    [{ key:'item',label:'Item' },{ key:'value',label:'Value' },{ key:'pct',label:'%' },{ key:'yoy',label:'Y/Y' }],
+                    [{ key: 'item', label: 'Item' }, { key: 'value', label: 'Value' }, { key: 'pct', label: '%' }, { key: 'yoy', label: 'Y/Y' }],
                     `${ticker}_income.csv`)}
                     className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-700/60 px-3 py-1.5 rounded-lg transition-colors">
                     <Download size={12} /> CSV
@@ -259,7 +258,7 @@ export default function CompanyDashboard({ config }) {
                 <div className="flex items-center justify-between mt-6 mb-1">
                   <span className="text-sm font-bold text-slate-300 uppercase tracking-widest">资产负债表 · {period}</span>
                   <button onClick={() => downloadCSV(balanceSnapshot,
-                    [{ key:'item',label:'Item' },{ key:'value',label:'Value' },{ key:'category',label:'Category' }],
+                    [{ key: 'item', label: 'Item' }, { key: 'value', label: 'Value' }, { key: 'category', label: 'Category' }],
                     `${ticker}_balance.csv`)}
                     className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-700/60 px-3 py-1.5 rounded-lg transition-colors">
                     <Download size={12} /> CSV
@@ -278,9 +277,8 @@ export default function CompanyDashboard({ config }) {
                         return (
                           <tr key={i} className={`border-b border-slate-800/20 ${isTotal ? 'bg-slate-800/15' : ''}`}>
                             <td className={`px-4 py-2 ${isTotal ? 'text-white font-semibold' : 'text-slate-400'}`}>{r.item}</td>
-                            <td className={`text-right px-4 py-2 font-medium ${
-                              r.category === 'equity' ? 'text-emerald-400' : isAsset ? 'text-blue-400' : 'text-red-400'
-                            } ${isTotal ? 'font-semibold' : ''}`}>{r.value.toLocaleString()}</td>
+                            <td className={`text-right px-4 py-2 font-medium ${r.category === 'equity' ? 'text-emerald-400' : isAsset ? 'text-blue-400' : 'text-red-400'
+                              } ${isTotal ? 'font-semibold' : ''}`}>{r.value.toLocaleString()}</td>
                           </tr>
                         );
                       })}
