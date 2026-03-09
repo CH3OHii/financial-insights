@@ -1,54 +1,97 @@
 # Financial Insights — 财经数据可视化
 
-> 交互式财报分析与数据驱动的投资可视化平台。将枯燥的财务数据转化为直观、可交互的出版级图表。
+交互式财报分析与数据驱动的投资可视化网站。
 
-## 这是什么
+## 技术栈
 
-Financial Insights 是一个专注于上市公司财报深度拆解的可视化网站。灵感来源于 [App Economy Insights](https://www.appeconomyinsights.com/)、Visual Capitalist 等知名财经可视化媒体，目标是用交互式图表让财务数据"一目了然"。
+- **Next.js 14** — React 全栈框架
+- **Tailwind CSS** — 原子化样式
+- **Recharts** — 图表库
+- **Lucide React** — 图标
 
-每篇分析覆盖五个核心维度：
+## 本地开发
 
-**总览** — KPI 卡片 + 按季度收入构成堆叠柱状图，快速掌握公司基本面。
+```bash
+# 1. 安装依赖
+npm install
 
-**Sankey 收入流向图** — 从收入分部汇聚到总营收，再逐级分流至成本、毛利、运营费用和利润/亏损。自研 SVG 布局引擎，基于节点-链接图模型（类似 Plotly `go.Sankey`），自动计算列深度、垂直排布和流宽度，支持 OpEx 细分至 S&M / R&D / G&A。
+# 2. 启动开发服务器
+npm run dev
 
-**利润率趋势** — 毛利率、营业利润率、净利率三线追踪，含零轴参考线，清晰展示盈利能力的演变路径。
+# 3. 打开浏览器访问
+# http://localhost:3000
+```
 
-**资本支出 (CapEx)** — 堆叠柱状图展示 PP&E / 资本化软件 / 其他投资构成，叠加 CapEx-to-Revenue 比率趋势线，配合自由现金流分析评估投资强度。
+## 部署到 Vercel（3 步）
 
-**资产负债结构** — 自定义水平堆叠条形图对比资产（蓝色系）与负债（红色系）构成，含 Hover 明细弹窗、Equity 占比可视化、FY 多年趋势图，以及 Debt/Equity 等关键比率。
+### 方式一：通过 GitHub（推荐）
 
-每个维度均附带简要分析文字，帮助读者理解数据背后的业务逻辑。
+1. **上传到 GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/你的用户名/financial-insights.git
+   git push -u origin main
+   ```
 
-## 已收录分析
+2. **连接 Vercel**
+   - 访问 [vercel.com](https://vercel.com) 并使用 GitHub 登录
+   - 点击 "New Project" → 选择你刚推送的 `financial-insights` 仓库
+   - Framework Preset 会自动识别为 Next.js
+   - 点击 "Deploy"
 
-| 公司 | 代码 | 期间 | 亮点 |
-|------|------|------|------|
-| CrowdStrike | CRWD | Q4 FY26 | 收入+23%，ARR $52.5亿，运营亏损收窄至(1%)，盈利拐点将至 |
+3. **完成！** Vercel 会自动构建并分配一个 `xxx.vercel.app` 域名。
+   之后每次 push 到 main 分支都会自动重新部署。
 
-> 更多公司分析持续更新中。
+### 方式二：通过 Vercel CLI
 
-## 设计理念
+```bash
+# 安装 Vercel CLI
+npm i -g vercel
 
-深色编辑式风格（Editorial Dark），避免千篇一律的 AI 生成美学：
+# 登录
+vercel login
 
-- **字体** — DM Serif Display（标题）+ IBM Plex Sans（正文）+ IBM Plex Mono（数据）
-- **配色** — 深邃的 slate-950 背景搭配高对比度数据色彩，利润绿 / 成本红 / 中性灰 语义分明
-- **质感** — 微噪点纹理叠层、渐变卡片边框、入场淡入动画
-- **响应式** — 移动端全面适配，KPI 卡片自动重排，图表自适应宽度
+# 一键部署
+vercel
+```
 
-## 技术实现
+## 项目结构
 
-| 层级 | 技术 |
-|------|------|
-| 框架 | Next.js 14 (App Router) |
-| 样式 | Tailwind CSS |
-| 图表 | Recharts + 自研 SVG Sankey 引擎 |
-| 图标 | Lucide React |
-| 部署 | Vercel |
+```
+financial-insights/
+├── app/
+│   ├── layout.js              # 根布局（字体、全局样式）
+│   ├── page.js                # 首页（文章列表）
+│   ├── globals.css            # 全局CSS
+│   └── analysis/
+│       └── crowdstrike-q4-fy26/
+│           ├── layout.js      # 页面 metadata
+│           └── page.js        # CrowdStrike 分析页
+├── components/
+│   ├── Header.js              # 网站头部
+│   ├── Footer.js              # 网站底部
+│   ├── ArticleCard.js         # 首页文章卡片
+│   ├── Sankey.js              # Sankey 流向图组件
+│   └── ChartUI.js             # 通用图表 UI 组件
+├── data/
+│   └── crowdstrike.js         # CrowdStrike 财务数据
+└── public/                    # 静态资源
+```
 
-核心架构采用**数据与视图分离**：财务数据集中在 `data/` 目录，页面组件从中导入，新增一家公司只需添加数据文件和路由页面。
+## 添加新的分析页
+
+1. 在 `data/` 下创建新的数据文件（如 `broadcom.js`）
+2. 在 `app/analysis/` 下创建新路由文件夹（如 `broadcom-q1-fy26/page.js`）
+3. 在 `app/page.js` 的 `articles` 数组中添加新条目
+
+## 自定义域名
+
+在 Vercel Dashboard → Settings → Domains 中添加你的自定义域名，
+然后在域名注册商处将 DNS 指向 Vercel。
 
 ## 许可
 
-仅供学习和个人使用。所有财务数据来源于公开财报，部分数据为估算值。本站内容不构成投资建议。
+仅供学习和个人使用。财务数据仅供参考，不构成投资建议。
